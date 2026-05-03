@@ -5,116 +5,173 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Harika Botcha - Azure Data Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --cream:#faf8f4;
-  --warm-white:#fff9f2;
-  --soft-brown:#3d2b1f;
-  --mid-brown:#6b4c3b;
-  --light-brown:#a07860;
-  --accent:#c0622a;
-  --accent2:#e8864a;
-  --muted:#8a7060;
-  --border:#e8ddd5;
-  --card:#ffffff;
-  --tag-bg:#f2ebe4;
-  --tag-text:#5c3d2e;
+  --bg:#0d0d0d;
+  --bg2:#111111;
+  --bg3:#161616;
+  --pink:#ff2d78;
+  --rose:#ff6b9d;
+  --hot:#ff0055;
+  --peach:#ffb3c6;
+  --text:#ffffff;
+  --text-muted:#aaaaaa;
+  --border:rgba(255,45,120,0.15);
+  --card:rgba(20,20,20,0.9);
+  --grad:linear-gradient(135deg,#ff2d78,#ff6b9d,#ffb3c6);
+  --grad2:linear-gradient(135deg,#ff0055,#ff2d78);
 }
 html{scroll-behavior:smooth;font-size:16px}
-body{background:var(--cream);color:var(--soft-brown);font-family:'Inter',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,248,244,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 2rem}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
-.nav-logo{font-family:'Lora',serif;font-size:1.1rem;font-weight:600;color:var(--soft-brown);text-decoration:none}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* Animated background blobs */
+body::before{
+  content:'';position:fixed;width:800px;height:800px;
+  background:radial-gradient(circle,rgba(255,45,120,0.12) 0%,transparent 70%);
+  top:-300px;right:-300px;border-radius:50%;
+  animation:float1 8s ease-in-out infinite;pointer-events:none;z-index:0;
+}
+body::after{
+  content:'';position:fixed;width:600px;height:600px;
+  background:radial-gradient(circle,rgba(255,107,157,0.08) 0%,transparent 70%);
+  bottom:-200px;left:-200px;border-radius:50%;
+  animation:float2 10s ease-in-out infinite;pointer-events:none;z-index:0;
+}
+@keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-40px,30px) scale(1.05)}}
+@keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.08)}}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,13,13,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2.5rem}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;letter-spacing:-0.5px}
 .nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s}
-.nav-links a:hover{color:var(--accent)}
-.hero{min-height:100vh;display:flex;align-items:center;padding:6rem 2rem 4rem;background:var(--warm-white)}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;letter-spacing:0.02em}
+.nav-links a:hover{color:var(--rose)}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;padding:7rem 2.5rem 4rem;position:relative;z-index:1}
 .hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-.hero-eyebrow{font-size:0.8rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
-.hero-name{font-family:'Lora',serif;font-size:clamp(2.4rem,5vw,3.8rem);font-weight:600;line-height:1.15;color:var(--soft-brown);margin-bottom:0.5rem}
-.hero-title{font-size:1.1rem;font-weight:400;color:var(--mid-brown);margin-bottom:1.8rem;font-style:italic;font-family:'Lora',serif}
-.hero-intro{font-size:1.05rem;color:var(--mid-brown);line-height:1.8;margin-bottom:2rem}
-.hero-intro strong{color:var(--soft-brown);font-weight:600}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,45,120,0.1);border:1px solid rgba(255,45,120,0.3);border-radius:100px;padding:6px 18px;font-size:0.75rem;font-weight:600;color:var(--rose);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem}
+.hero-badge::before{content:'';width:7px;height:7px;background:var(--pink);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,4.5rem);font-weight:700;line-height:1.08;letter-spacing:-2px;margin-bottom:0.5rem;color:var(--text)}
+.hero-title{font-size:1.15rem;font-weight:400;margin-bottom:1.8rem;font-style:italic;font-family:'Playfair Display',serif;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-intro{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:2.2rem;font-weight:300}
+.hero-intro strong{color:var(--text);font-weight:600}
 .hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
-.btn{display:inline-block;padding:0.75rem 1.6rem;border-radius:6px;font-weight:600;font-size:0.9rem;text-decoration:none;transition:all 0.25s}
-.btn-primary{background:var(--accent);color:#fff;border:2px solid var(--accent)}
-.btn-primary:hover{background:var(--soft-brown);border-color:var(--soft-brown)}
-.btn-outline{background:transparent;color:var(--accent);border:2px solid var(--accent)}
-.btn-outline:hover{background:var(--accent);color:#fff}
+
+.btn{display:inline-block;padding:0.8rem 1.8rem;border-radius:8px;font-weight:600;font-size:0.9rem;text-decoration:none;transition:all 0.3s;font-family:'Outfit',sans-serif}
+.btn-primary{background:var(--grad2);color:#fff;border:none;box-shadow:0 4px 20px rgba(255,45,120,0.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,45,120,0.5)}
+.btn-outline{background:transparent;color:var(--rose);border:1.5px solid rgba(255,45,120,0.4)}
+.btn-outline:hover{background:rgba(255,45,120,0.1);border-color:var(--pink);transform:translateY(-2px)}
+
+/* Stat cards */
 .hero-visual{display:flex;flex-direction:column;gap:1rem}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.4rem 1.6rem;box-shadow:0 2px 12px rgba(0,0,0,0.05)}
-.stat-card h3{font-size:1.9rem;font-weight:700;color:var(--accent);font-family:'Lora',serif}
-.stat-card p{font-size:0.85rem;color:var(--muted);margin-top:0.15rem}
 .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-section{padding:5rem 2rem}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.6rem;backdrop-filter:blur(10px);transition:border-color 0.3s,transform 0.3s}
+.stat-card:hover{border-color:rgba(255,45,120,0.4);transform:translateY(-3px)}
+.stat-card h3{font-size:2rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:0.3rem}
+.stat-card p{font-size:0.8rem;color:var(--text-muted);font-weight:400}
+.stat-card.wide h3{font-size:1.3rem;font-weight:700}
+
+/* Sections */
+section{padding:6rem 2.5rem;position:relative;z-index:1}
 .section-inner{max-width:1100px;margin:0 auto}
-.section-label{font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem}
-.section-heading{font-family:'Lora',serif;font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:600;color:var(--soft-brown);margin-bottom:1rem;line-height:1.25}
-.section-sub{font-size:1rem;color:var(--muted);max-width:580px;line-height:1.75;margin-bottom:3rem}
-.about{background:var(--cream)}
+.section-label{font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.6rem;display:block}
+.section-heading{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;color:var(--text);margin-bottom:1rem;line-height:1.2;letter-spacing:-0.5px}
+.section-sub{font-size:0.95rem;color:var(--text-muted);max-width:560px;line-height:1.8;margin-bottom:3rem;font-weight:300}
+
+/* About */
+.about{background:var(--bg2)}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.about-text p{font-size:1rem;color:var(--mid-brown);line-height:1.85;margin-bottom:1.2rem}
-.about-aside{display:flex;flex-direction:column;gap:1.5rem}
-.about-fact{border-left:3px solid var(--accent2);padding-left:1.2rem}
-.about-fact strong{display:block;font-size:0.85rem;font-weight:700;color:var(--soft-brown);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.2rem}
-.about-fact span{font-size:0.95rem;color:var(--mid-brown)}
-.skills{background:var(--warm-white)}
+.about-text p{font-size:0.97rem;color:var(--text-muted);line-height:1.9;margin-bottom:1.2rem;font-weight:300}
+.about-aside{display:flex;flex-direction:column;gap:1.4rem}
+.about-fact{border-left:3px solid;border-image:var(--grad) 1;padding-left:1.2rem;border-left:3px solid var(--pink)}
+.about-fact strong{display:block;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.25rem}
+.about-fact span{font-size:0.9rem;color:var(--text-muted)}
+
+/* Skills */
+.skills{background:var(--bg)}
 .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
-.skill-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.8rem;transition:transform 0.2s,box-shadow 0.2s}
-.skill-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
-.skill-icon{font-size:1.5rem;margin-bottom:0.8rem}
-.skill-card h3{font-size:0.95rem;font-weight:700;color:var(--soft-brown);margin-bottom:0.3rem}
-.skill-card .sk-desc{font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.5}
+.skill-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.8rem;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);opacity:0;transition:opacity 0.3s}
+.skill-card:hover{transform:translateY(-4px);border-color:rgba(255,45,120,0.3);box-shadow:0 12px 40px rgba(255,45,120,0.1)}
+.skill-card:hover::before{opacity:1}
+.skill-icon{font-size:1.6rem;margin-bottom:1rem}
+.skill-card h3{font-size:0.9rem;font-weight:700;color:var(--text);margin-bottom:0.4rem;letter-spacing:0.02em}
+.skill-card .sk-desc{font-size:0.8rem;color:var(--text-muted);margin-bottom:1rem;line-height:1.6;font-weight:300}
 .sk-tags{display:flex;flex-wrap:wrap;gap:0.4rem}
-.sk-tag{background:var(--tag-bg);color:var(--tag-text);font-size:0.75rem;font-weight:500;padding:0.25rem 0.65rem;border-radius:20px;border:1px solid var(--border)}
-.experience{background:var(--cream)}
+.sk-tag{background:rgba(255,45,120,0.08);color:var(--rose);font-size:0.72rem;font-weight:500;padding:0.25rem 0.7rem;border-radius:100px;border:1px solid rgba(255,45,120,0.2);transition:all 0.2s}
+.sk-tag:hover{background:rgba(255,45,120,0.2);border-color:var(--pink)}
+
+/* Experience */
+.experience{background:var(--bg2)}
 .exp-list{display:flex;flex-direction:column;gap:3rem}
-.exp-item{display:grid;grid-template-columns:200px 1fr;gap:3rem}
+.exp-item{display:grid;grid-template-columns:220px 1fr;gap:3rem}
 .exp-meta{padding-top:0.25rem}
-.exp-period{font-size:0.8rem;font-weight:600;color:var(--accent);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.5rem}
-.exp-company{font-size:0.95rem;font-weight:600;color:var(--soft-brown);margin-bottom:0.2rem}
-.exp-location{font-size:0.82rem;color:var(--muted)}
-.exp-content h3{font-size:1.15rem;font-weight:700;color:var(--soft-brown);margin-bottom:0.2rem;font-family:'Lora',serif}
-.exp-role-label{font-size:0.85rem;color:var(--accent);font-weight:500;margin-bottom:1rem}
-.exp-content ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.7rem}
-.exp-content li{font-size:0.92rem;color:var(--mid-brown);line-height:1.7;padding-left:1.2rem;position:relative}
-.exp-content li::before{content:'\2014';position:absolute;left:0;color:var(--accent2);font-weight:700}
+.exp-period{font-size:0.75rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.6rem}
+.exp-company{font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:0.2rem}
+.exp-location{font-size:0.8rem;color:var(--text-muted)}
+.exp-content h3{font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:0.25rem;font-family:'Playfair Display',serif}
+.exp-role-label{font-size:0.82rem;color:var(--rose);font-weight:500;margin-bottom:1.2rem}
+.exp-content ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.75rem}
+.exp-content li{font-size:0.9rem;color:var(--text-muted);line-height:1.75;padding-left:1.4rem;position:relative;font-weight:300}
+.exp-content li::before{content:'';position:absolute;left:0;top:0.65em;width:6px;height:6px;border-radius:50%;background:var(--grad2)}
 .exp-divider{height:1px;background:var(--border);margin:0;border:none}
-.projects{background:var(--warm-white)}
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.5rem}
-.proj-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.8rem;display:flex;flex-direction:column;transition:transform 0.2s,box-shadow 0.2s}
-.proj-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
-.proj-card h3{font-size:1rem;font-weight:700;color:var(--soft-brown);margin-bottom:0.5rem;font-family:'Lora',serif}
-.proj-card p{font-size:0.87rem;color:var(--mid-brown);line-height:1.7;flex:1;margin-bottom:1rem}
-.proj-meta{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1rem}
-.proj-tag{background:var(--tag-bg);color:var(--tag-text);font-size:0.72rem;font-weight:500;padding:0.2rem 0.55rem;border-radius:20px}
-.proj-links a{font-size:0.8rem;font-weight:600;color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.2s}
-.proj-links a:hover{border-color:var(--accent)}
-.education{background:var(--cream)}
+
+/* Projects */
+.projects{background:var(--bg)}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2rem;display:flex;flex-direction:column;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.proj-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.proj-card:hover{transform:translateY(-5px);border-color:rgba(255,45,120,0.3);box-shadow:0 16px 50px rgba(255,45,120,0.12)}
+.proj-card:hover::after{transform:scaleX(1)}
+.proj-num{font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:var(--text-muted);margin-bottom:1rem;opacity:0.5}
+.proj-card h3{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:0.6rem;font-family:'Playfair Display',serif}
+.proj-card p{font-size:0.85rem;color:var(--text-muted);line-height:1.75;flex:1;margin-bottom:1.2rem;font-weight:300}
+.proj-meta{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1.2rem}
+.proj-tag{background:rgba(255,45,120,0.08);color:var(--rose);font-size:0.72rem;font-weight:500;padding:0.22rem 0.6rem;border-radius:100px;border:1px solid rgba(255,45,120,0.2)}
+.proj-links a{font-size:0.82rem;font-weight:600;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none}
+
+/* Education */
+.education{background:var(--bg2)}
 .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.edu-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.8rem}
-.edu-card .deg{font-size:1rem;font-weight:700;color:var(--soft-brown);margin-bottom:0.3rem;font-family:'Lora',serif}
-.edu-card .school{font-size:0.9rem;color:var(--mid-brown);margin-bottom:0.25rem}
-.edu-card .period{font-size:0.8rem;color:var(--muted)}
-.edu-badge{display:inline-block;margin-top:0.75rem;background:var(--tag-bg);color:var(--tag-text);font-size:0.75rem;font-weight:600;padding:0.25rem 0.7rem;border-radius:20px}
-.contact{background:var(--warm-white)}
+.edu-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2rem;backdrop-filter:blur(10px);transition:border-color 0.3s,transform 0.3s}
+.edu-card:hover{border-color:rgba(255,45,120,0.3);transform:translateY(-3px)}
+.edu-card .deg{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.4rem;font-family:'Playfair Display',serif}
+.edu-card .school{font-size:0.88rem;color:var(--text-muted);margin-bottom:0.3rem;font-weight:300}
+.edu-card .period{font-size:0.78rem;color:var(--text-muted);opacity:0.6}
+.edu-badge{display:inline-block;margin-top:1rem;background:rgba(255,45,120,0.1);color:var(--rose);font-size:0.72rem;font-weight:600;padding:0.25rem 0.8rem;border-radius:100px;border:1px solid rgba(255,45,120,0.25)}
+.cert-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2rem;grid-column:1/-1;backdrop-filter:blur(10px)}
+.cert-list{display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:0.75rem}
+.cert-item{background:rgba(255,45,120,0.08);color:var(--rose);font-size:0.82rem;font-weight:500;padding:0.4rem 1rem;border-radius:100px;border:1px solid rgba(255,45,120,0.2)}
+
+/* Contact */
+.contact{background:var(--bg)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.contact-text p{font-size:1rem;color:var(--mid-brown);line-height:1.8;margin-bottom:1.5rem}
+.contact-text p{font-size:0.97rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.5rem;font-weight:300}
 .contact-links{display:flex;flex-direction:column;gap:1.2rem}
 .contact-item{display:flex;align-items:center;gap:1rem}
-.contact-item a{color:var(--mid-brown);text-decoration:none;font-size:0.95rem;transition:color 0.2s}
-.contact-item a:hover{color:var(--accent)}
-.contact-icon{width:40px;height:40px;background:var(--tag-bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:center;padding:2rem;font-size:0.82rem}
-.rv{opacity:1;transform:none}.rv-anim{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
+.contact-item a{color:var(--text-muted);text-decoration:none;font-size:0.92rem;transition:color 0.2s;font-weight:300}
+.contact-item a:hover{color:var(--rose)}
+.contact-icon{width:42px;height:42px;background:rgba(255,45,120,0.1);border:1px solid rgba(255,45,120,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+
+/* Footer */
+footer{background:var(--bg2);border-top:1px solid var(--border);color:var(--text-muted);text-align:center;padding:2rem;font-size:0.8rem;position:relative;z-index:1}
+
+/* Scroll reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease}
 .rv.vis{opacity:1;transform:none}
+
 @media(max-width:768px){
   .hero-inner,.about-grid,.exp-item,.contact-grid,.edu-grid{grid-template-columns:1fr;gap:2.5rem}
   .exp-item{gap:1rem}
   .stat-row{grid-template-columns:1fr}
   .nav-links{display:none}
+  section{padding:4rem 1.5rem}
 }
 </style>
 </head>
@@ -137,11 +194,11 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
 <section class="hero" id="top">
   <div class="hero-inner">
     <div>
-      <p class="hero-eyebrow">Azure Data Engineer</p>
+      <div class="hero-badge">Azure Data Engineer</div>
       <h1 class="hero-name">Harika Botcha</h1>
       <p class="hero-title">I make messy data make sense.</p>
       <p class="hero-intro">
-        I've spent the last four years building the kind of data infrastructure that quietly powers everything &mdash; dashboards that CFOs actually trust, pipelines that don't break at 2am, and lakehouses that scale without drama. <strong>Healthcare, finance, cloud</strong> &mdash; that's my world.
+        I've spent the last 3.5 years building data infrastructure that quietly powers everything — dashboards that CFOs actually trust, pipelines that don't break at 2am, and lakehouses that scale without drama. <strong>Healthcare, finance, cloud</strong> — that's my world.
       </p>
       <div class="hero-cta">
         <a href="#contact" class="btn btn-primary">Let's Talk</a>
@@ -150,16 +207,16 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
     </div>
     <div class="hero-visual">
       <div class="stat-row">
-        <div class="stat-card"><h3>4+</h3><p>years in data engineering</p></div>
+        <div class="stat-card"><h3>3.5+</h3><p>years in data engineering</p></div>
         <div class="stat-card"><h3>10M+</h3><p>records processed daily</p></div>
       </div>
       <div class="stat-row">
         <div class="stat-card"><h3>5TB+</h3><p>financial data optimized</p></div>
         <div class="stat-card"><h3>50%</h3><p>faster query execution</p></div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card wide">
         <h3>Azure &middot; AWS &middot; Snowflake</h3>
-        <p>Primary cloud stack &mdash; from ingestion to insight</p>
+        <p>Primary cloud stack — from ingestion to insight</p>
       </div>
     </div>
   </div>
@@ -167,35 +224,20 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
 
 <section class="about" id="about">
   <div class="section-inner">
-    <p class="section-label rv">A bit about me</p>
+    <span class="section-label rv">A bit about me</span>
     <h2 class="section-heading rv">Data engineer by trade,<br>problem-solver by nature.</h2>
     <div class="about-grid">
       <div class="about-text rv">
-        <p>I moved to the US from India to do my Master's in Data Science at the University of Memphis &mdash; and data engineering kind of claimed me along the way. There's something deeply satisfying about taking a chaotic pile of raw data and turning it into something a business can actually act on.</p>
-        <p>My day-to-day involves designing pipelines on Azure (Databricks, ADLS, ADF), building medallion architectures, and making sure data gets where it needs to go &mdash; clean, on time, and trustworthy. I care a lot about data quality, not just data volume.</p>
-        <p>Outside of work, I'm the person who gets irrationally excited when a SQL query runs 50% faster after a few index tweaks. Small wins, big impact &mdash; that's the philosophy I bring to every project.</p>
+        <p>I moved to the US from India to do my Master's in Data Science at the University of Memphis — and data engineering kind of claimed me along the way. There's something deeply satisfying about taking a chaotic pile of raw data and turning it into something a business can actually act on.</p>
+        <p>My day-to-day involves designing pipelines on Azure (Databricks, ADLS, ADF), building medallion architectures, and making sure data gets where it needs to go — clean, on time, and trustworthy. I care a lot about data quality, not just data volume.</p>
+        <p>Outside of work, I'm the person who gets irrationally excited when a SQL query runs 50% faster after a few index tweaks. Small wins, big impact — that's the philosophy I bring to every project.</p>
       </div>
       <div class="about-aside rv">
-        <div class="about-fact">
-          <strong>Currently</strong>
-          <span>Data Engineer @ NeuroNet Solutions Inc (Remote)</span>
-        </div>
-        <div class="about-fact">
-          <strong>Open to</strong>
-          <span>Azure Data Engineer roles &mdash; full-time, US-based or remote</span>
-        </div>
-        <div class="about-fact">
-          <strong>Education</strong>
-          <span>M.S. Data Science, University of Memphis (2024)</span>
-        </div>
-        <div class="about-fact">
-          <strong>Location</strong>
-          <span>United States</span>
-        </div>
-        <div class="about-fact">
-          <strong>Specialties</strong>
-          <span>Medallion architecture, ETL/ELT, streaming pipelines, HIPAA-compliant data systems</span>
-        </div>
+        <div class="about-fact"><strong>Currently</strong><span>Data Engineer @ NeuroNet Solutions Inc (Remote)</span></div>
+        <div class="about-fact"><strong>Open to</strong><span>Azure Data Engineer roles — full-time, US-based or remote</span></div>
+        <div class="about-fact"><strong>Education</strong><span>M.S. Data Science, University of Memphis (2024)</span></div>
+        <div class="about-fact"><strong>Location</strong><span>Collierville, Tennessee, United States</span></div>
+        <div class="about-fact"><strong>Specialties</strong><span>Medallion architecture, ETL/ELT, streaming pipelines, HIPAA-compliant data systems</span></div>
       </div>
     </div>
   </div>
@@ -203,12 +245,12 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
 
 <section class="skills" id="skills">
   <div class="section-inner">
-    <p class="section-label rv">What I work with</p>
+    <span class="section-label rv">What I work with</span>
     <h2 class="section-heading rv">The toolkit I reach for every day.</h2>
-    <p class="section-sub rv">No fluff &mdash; these are the technologies I've actually shipped production work in.</p>
+    <p class="section-sub rv">No fluff — these are the technologies I've actually shipped production work in.</p>
     <div class="skills-grid">
       <div class="skill-card rv">
-        <div class="skill-icon">&#9729;&#65039;</div>
+        <div class="skill-icon">☁️</div>
         <h3>Azure &amp; Cloud</h3>
         <p class="sk-desc">Azure is my primary platform. I've built end-to-end data platforms on it and know how the pieces fit together.</p>
         <div class="sk-tags">
@@ -216,15 +258,15 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
         </div>
       </div>
       <div class="skill-card rv">
-        <div class="skill-icon">&#9881;&#65039;</div>
+        <div class="skill-icon">⚙️</div>
         <h3>ETL &amp; Pipelines</h3>
-        <p class="sk-desc">I've built pipelines at scale &mdash; the kind that process terabytes daily without anyone noticing, because they just work.</p>
+        <p class="sk-desc">I've built pipelines at scale — the kind that process terabytes daily without anyone noticing, because they just work.</p>
         <div class="sk-tags">
           <span class="sk-tag">Azure Data Factory</span><span class="sk-tag">Apache Airflow</span><span class="sk-tag">dbt</span><span class="sk-tag">AWS Glue</span><span class="sk-tag">SSIS</span><span class="sk-tag">Informatica</span><span class="sk-tag">Kafka</span><span class="sk-tag">Step Functions</span><span class="sk-tag">PySpark</span>
         </div>
       </div>
       <div class="skill-card rv">
-        <div class="skill-icon">&#128451;&#65039;</div>
+        <div class="skill-icon">🗄️</div>
         <h3>Databases &amp; Warehousing</h3>
         <p class="sk-desc">SQL is my first language. I write it well, optimize it obsessively, and design schemas that make queries fast.</p>
         <div class="sk-tags">
@@ -232,7 +274,7 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
         </div>
       </div>
       <div class="skill-card rv">
-        <div class="skill-icon">&#128013;</div>
+        <div class="skill-icon">🐍</div>
         <h3>Languages</h3>
         <p class="sk-desc">Python is my go-to for everything from data wrangling to pipeline scripting. PySpark when scale demands it.</p>
         <div class="sk-tags">
@@ -240,15 +282,15 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
         </div>
       </div>
       <div class="skill-card rv">
-        <div class="skill-icon">&#128202;</div>
+        <div class="skill-icon">📊</div>
         <h3>BI &amp; Visualization</h3>
-        <p class="sk-desc">I bridge the gap between raw data and decisions &mdash; building dashboards that people actually open.</p>
+        <p class="sk-desc">I bridge the gap between raw data and decisions — building dashboards that people actually open.</p>
         <div class="sk-tags">
-          <span class="sk-tag">Power BI</span><span class="sk-tag">Tableau</span><span class="sk-tag">Looker</span><span class="sk-tag">Alteryx</span><span class="sk-tag">Matplotlib</span>
+          <span class="sk-tag">Power BI</span><span class="sk-tag">Tableau</span><span class="sk-tag">Looker</span><span class="sk-tag">Alteryx</span>
         </div>
       </div>
       <div class="skill-card rv">
-        <div class="skill-icon">&#128295;</div>
+        <div class="skill-icon">🔧</div>
         <h3>DevOps &amp; Practices</h3>
         <p class="sk-desc">Data engineering is software engineering. CI/CD, version control, and good deployment hygiene matter.</p>
         <div class="sk-tags">
@@ -261,23 +303,23 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
 
 <section class="experience" id="experience">
   <div class="section-inner">
-    <p class="section-label rv">Where I've worked</p>
+    <span class="section-label rv">Where I've worked</span>
     <h2 class="section-heading rv">Building data systems that people depend on.</h2>
     <p class="section-sub rv">Three roles, three different challenges. The common thread is data that needed to be reliable, scalable, and fast.</p>
     <div class="exp-list">
 
       <div class="exp-item rv">
         <div class="exp-meta">
-          <p class="exp-period">Nov 2025 &ndash; Present</p>
+          <p class="exp-period">Nov 2025 – Apr 2026</p>
           <p class="exp-company">NeuroNet Solutions Inc</p>
-          <p class="exp-location">Irving, TX (Remote)</p>
+          <p class="exp-location">Collierville, TN (Remote)</p>
         </div>
         <div class="exp-content">
           <h3>Data Engineer</h3>
           <p class="exp-role-label">Healthcare &amp; Finance Data Infrastructure</p>
           <ul>
             <li>Design and maintain Azure-compatible ETL/ELT pipelines using Python and PySpark, processing 10M+ records daily across healthcare and finance datasets for ML-driven analytics.</li>
-            <li>Architect cloud data infrastructure (AWS S3, Redshift, Glue) following medallion lakehouse patterns.</li>
+            <li>Architect cloud data infrastructure across AWS (S3, Redshift, Glue) and Azure (ADLS, ADF) following medallion lakehouse patterns, supporting scalable ingestion and transformation workflows.</li>
             <li>Implement data validation frameworks and quality checks across production pipelines, improving data integrity by 35% and reducing downstream errors.</li>
             <li>Tune SQL queries and warehouse performance through indexing, partitioning, and materialized views, achieving 50% faster query execution on large-scale datasets.</li>
             <li>Partner with data science teams on ML-ready feature engineering for patient outcome and financial forecasting models.</li>
@@ -290,19 +332,19 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
 
       <div class="exp-item rv">
         <div class="exp-meta">
-          <p class="exp-period">Dec 2023 &ndash; Oct 2025</p>
-          <p class="exp-company">Intuit</p>
-          <p class="exp-location">Remote</p>
+          <p class="exp-period">Feb 2025 – Oct 2025</p>
+          <p class="exp-company">Nefroverse Innovation Unleashed</p>
+          <p class="exp-location">Placed at Intuit | Remote</p>
         </div>
         <div class="exp-content">
           <h3>Analytics Engineer</h3>
-          <p class="exp-role-label">Financial Data Platform</p>
+          <p class="exp-role-label">Financial Data Platform — Client: Intuit</p>
           <ul>
             <li>Built and optimized SQL-based cloud data pipelines processing 5TB+ financial datasets, reducing processing time by 30% through query optimization and partition pruning.</li>
             <li>Developed automated ETL workflows for financial data reconciliation, accelerating month-end close cycles by 25% and eliminating manual data preparation bottlenecks.</li>
             <li>Designed dimensional data models (Star Schema) on Snowflake and cloud warehouses to optimize query performance and support self-service analytics.</li>
             <li>Implemented CI/CD pipelines and DevOps-aligned deployment practices for data workflows, improving reliability and deployment speed.</li>
-            <li>Created executive-facing Power BI dashboards tracking revenue, expenses, and business KPIs &mdash; improving leadership forecasting accuracy by 12%.</li>
+            <li>Created Power BI dashboards for leadership tracking revenue, expenses, and business KPIs, improving forecasting accuracy by 12%.</li>
             <li>Collaborated with FP&amp;A, compliance, and business operations teams to translate requirements into scalable data models and reporting solutions.</li>
           </ul>
         </div>
@@ -312,7 +354,7 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
 
       <div class="exp-item rv">
         <div class="exp-meta">
-          <p class="exp-period">Jan 2021 &ndash; Dec 2022</p>
+          <p class="exp-period">Jan 2021 – Dec 2022</p>
           <p class="exp-company">Wipro</p>
           <p class="exp-location">Hyderabad, India</p>
         </div>
@@ -334,41 +376,36 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
 
 <section class="projects" id="projects">
   <div class="section-inner">
-    <p class="section-label rv">Things I've built</p>
+    <span class="section-label rv">Things I've built</span>
     <h2 class="section-heading rv">Side projects I'm genuinely proud of.</h2>
-    <p class="section-sub rv">Personal projects are where I get to design the full stack &mdash; from raw data ingestion to a working API endpoint.</p>
+    <p class="section-sub rv">Personal projects are where I get to design the full stack — from raw data ingestion to a working API endpoint.</p>
     <div class="proj-grid">
       <div class="proj-card rv">
+        <div class="proj-num">01 / PROJECT</div>
         <h3>Finance Forecasting ML Pipeline</h3>
-        <p>Production-grade revenue forecasting system. I designed the full pipeline &mdash; data generation, validation, preprocessing, feature engineering, model training (SARIMA, Prophet, XGBoost), ensemble weighting, and REST API serving. Dockerized with CI/CD.</p>
+        <p>End-to-end ML pipeline with automated ingestion, feature engineering, and model training using SARIMA, Prophet, and XGBoost. Containerized with Docker and deployed via CI/CD with 44 passing tests in production. Includes a FastAPI REST API for real-time revenue forecasting.</p>
         <div class="proj-meta">
-          <span class="proj-tag">Python</span><span class="proj-tag">XGBoost</span><span class="proj-tag">FastAPI</span><span class="proj-tag">Docker</span><span class="proj-tag">PostgreSQL</span><span class="proj-tag">GitHub Actions</span>
+          <span class="proj-tag">Python</span><span class="proj-tag">XGBoost</span><span class="proj-tag">FastAPI</span><span class="proj-tag">Docker</span><span class="proj-tag">GitHub Actions</span><span class="proj-tag">CI/CD</span>
         </div>
-        <div class="proj-links"><a href="https://github.com/harikabotcha" target="_blank">Source Code</a></div>
+        <div class="proj-links"><a href="https://github.com/harikabotcha" target="_blank">Source Code &rarr;</a></div>
       </div>
       <div class="proj-card rv">
+        <div class="proj-num">02 / PROJECT</div>
         <h3>Healthcare EHR Pipeline</h3>
-        <p>End-to-end data pipeline for EHR datasets &mdash; ingestion, cleaning, feature extraction, and predictive model training with Power BI dashboards for clinical stakeholders. Improved prediction accuracy by 18%.</p>
+        <p>Built ingestion and transformation pipelines for EHR datasets supporting high-risk patient identification models, achieving 18% improved prediction accuracy. Developed interactive Power BI dashboards for clinical KPIs, treatment effectiveness, and HIPAA compliance reporting.</p>
         <div class="proj-meta">
-          <span class="proj-tag">Python</span><span class="proj-tag">SQL</span><span class="proj-tag">Power BI</span><span class="proj-tag">ETL</span><span class="proj-tag">HIPAA</span>
+          <span class="proj-tag">Python</span><span class="proj-tag">SQL</span><span class="proj-tag">Power BI</span><span class="proj-tag">Scikit-learn</span><span class="proj-tag">HIPAA</span>
         </div>
-        <div class="proj-links"><a href="https://github.com/harikabotcha" target="_blank">Source Code</a></div>
+        <div class="proj-links"><a href="https://github.com/harikabotcha" target="_blank">Source Code &rarr;</a></div>
       </div>
       <div class="proj-card rv">
-        <h3>Fraud Detection Pipeline</h3>
-        <p>ML data pipeline integrating SQL Server, Excel, and JSON sources with IQR/Z-score preprocessing, feeding XGBoost classification models. 90% precision and 25% fewer false positives.</p>
+        <div class="proj-num">03 / PROJECT</div>
+        <h3>Fraud Detection in Healthcare Claims</h3>
+        <p>ML pipeline pulling multi-source data from SQL Server, Excel, and JSON with automated outlier detection using IQR and Z-score methods. Achieved 90% precision on fraudulent claim identification with 25% reduction in false positives.</p>
         <div class="proj-meta">
-          <span class="proj-tag">XGBoost</span><span class="proj-tag">SQL Server</span><span class="proj-tag">Python</span><span class="proj-tag">ML</span>
+          <span class="proj-tag">Python</span><span class="proj-tag">XGBoost</span><span class="proj-tag">SQL Server</span><span class="proj-tag">IQR</span><span class="proj-tag">Z-score</span>
         </div>
-        <div class="proj-links"><a href="https://github.com/harikabotcha" target="_blank">Source Code</a></div>
-      </div>
-      <div class="proj-card rv">
-        <h3>Real Estate Data Pipeline</h3>
-        <p>Automated data pipeline for house price prediction &mdash; cleaning, feature engineering, model training, and stakeholder reporting. Built for reproducibility and easy extension.</p>
-        <div class="proj-meta">
-          <span class="proj-tag">Python</span><span class="proj-tag">Feature Engineering</span><span class="proj-tag">Pandas</span><span class="proj-tag">Automation</span>
-        </div>
-        <div class="proj-links"><a href="https://github.com/harikabotcha" target="_blank">Source Code</a></div>
+        <div class="proj-links"><a href="https://github.com/harikabotcha" target="_blank">Source Code &rarr;</a></div>
       </div>
     </div>
   </div>
@@ -376,20 +413,27 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
 
 <section class="education" id="education">
   <div class="section-inner">
-    <p class="section-label rv">Background</p>
-    <h2 class="section-heading rv">Education</h2>
+    <span class="section-label rv">Background</span>
+    <h2 class="section-heading rv">Education &amp; Certifications</h2>
     <div class="edu-grid">
       <div class="edu-card rv">
         <p class="deg">M.S. in Data Science</p>
         <p class="school">University of Memphis, Memphis, TN</p>
-        <p class="period">Jan 2023 &ndash; Dec 2024</p>
+        <p class="period">Jan 2023 – Dec 2024</p>
         <span class="edu-badge">Graduate Degree</span>
       </div>
       <div class="edu-card rv">
         <p class="deg">B.Tech in Electronics &amp; Communication Engineering</p>
-        <p class="school">JNTUK, India</p>
-        <p class="period">2017 &ndash; 2021 &nbsp;&middot;&nbsp; GPA: 3.69</p>
+        <p class="school">Jawaharlal Nehru Technological University (JNTUK), India</p>
+        <p class="period">2017 – 2021</p>
         <span class="edu-badge">Undergraduate Degree</span>
+      </div>
+      <div class="cert-card rv">
+        <p class="deg" style="font-size:0.95rem;font-weight:700;color:#fff">Certifications</p>
+        <div class="cert-list">
+          <span class="cert-item">Advanced Google Analytics — LinkedIn (Mar 2025)</span>
+          <span class="cert-item">ETL in Python and SQL — LinkedIn (Jan 2025)</span>
+        </div>
       </div>
     </div>
   </div>
@@ -399,29 +443,29 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
   <div class="section-inner">
     <div class="contact-grid">
       <div>
-        <p class="section-label rv">Get in touch</p>
+        <span class="section-label rv">Get in touch</span>
         <h2 class="section-heading rv">Let's build something worth building.</h2>
         <div class="contact-text rv">
-          <p>I'm actively looking for Azure Data Engineer roles where I can own meaningful infrastructure &mdash; not just maintain it. If you're building something ambitious with data, I'd love to hear about it.</p>
-          <p>Feel free to reach out &mdash; I respond within a day, usually faster.</p>
+          <p>I'm actively looking for Azure Data Engineer roles where I can own meaningful infrastructure — not just maintain it. If you're building something ambitious with data, I'd love to hear about it.</p>
+          <p>Feel free to reach out — I respond within a day, usually faster.</p>
         </div>
-        <a href="mailto:harikab307@gmail.com" class="btn btn-primary rv">Say Hello</a>
+        <a href="mailto:botchaharika770@gmail.com" class="btn btn-primary rv">Say Hello</a>
       </div>
       <div class="contact-links rv">
         <div class="contact-item">
-          <div class="contact-icon">&#9993;&#65039;</div>
-          <a href="mailto:harikab307@gmail.com">harikab307@gmail.com</a>
+          <div class="contact-icon">✉️</div>
+          <a href="mailto:botchaharika770@gmail.com">botchaharika770@gmail.com</a>
         </div>
         <div class="contact-item">
-          <div class="contact-icon">&#128188;</div>
+          <div class="contact-icon">💼</div>
           <a href="https://linkedin.com/in/harika-botcha" target="_blank">linkedin.com/in/harika-botcha</a>
         </div>
         <div class="contact-item">
-          <div class="contact-icon">&#128241;</div>
+          <div class="contact-icon">📱</div>
           <a href="tel:9016565408">(901) 656-5408</a>
         </div>
         <div class="contact-item">
-          <div class="contact-icon">&#128187;</div>
+          <div class="contact-icon">💻</div>
           <a href="https://github.com/harikabotcha" target="_blank">github.com/harikabotcha</a>
         </div>
       </div>
@@ -430,7 +474,7 @@ footer{background:var(--soft-brown);color:rgba(255,255,255,0.55);text-align:cent
 </section>
 
 <footer>
-  <p>&copy; 2025 Harika Botcha</p>
+  <p>&copy; 2026 Harika Botcha &mdash; Azure Data Engineer &mdash; Collierville, Tennessee</p>
 </footer>
 
 <script>
